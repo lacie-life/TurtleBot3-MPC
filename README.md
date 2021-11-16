@@ -30,3 +30,23 @@ sudo rosdep init
 rosdep update
 ```
 
+### RTabMAP and Octomap install
+
+```
+sudo apt install ros-noetic-octomap-server
+sudo apt install ros-noetic-octomap ros-noetic-octomap-rviz-plugins ros-noetic-rtabmap ros-noetic-rtabmap-ros
+```
+
+### Run 
+
+```
+# Export turtlebot model
+export TURTLEBOT3_MODEL=waffle
+```
+
+#### Build Octomap
+
+```
+roslaunch turtlebot_octomap turtlebot_build_map.launch
+```
+

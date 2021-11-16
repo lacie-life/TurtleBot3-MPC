@@ -1,0 +1,3 @@
+- git:
+    local-name: turtlebot_octomap
+    uri: https://github.com/RyuYamamoto/turtlebot_octomap.git
