@@ -50,3 +50,13 @@ export TURTLEBOT3_MODEL=waffle
 roslaunch turtlebot_octomap turtlebot_build_map.launch
 ```
 
+#### Control
+```
+roslaunch turtlebot3_teleop turtlebot3_teleop_key.launch
+```
+
+#### Save map
+```
+rosrun octomap_server octomap_saver -f octomap_test.bt
+```
+
