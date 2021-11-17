@@ -47,7 +47,7 @@ find_package(control_box_rst QUIET COMPONENTS
   optimal_control
   systems
   PATH_SUFFIXES share/control_box_rst control_box_rst
-  PATHS ${CMAKE_BINARY_DIR} /usr/local
+  PATHS  /usr/local
 )
 
 # Eigen3 FindScript Backward compatibility (ubuntu saucy)

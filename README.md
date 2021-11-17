@@ -37,6 +37,19 @@ sudo apt install ros-noetic-octomap-server
 sudo apt install ros-noetic-octomap ros-noetic-octomap-rviz-plugins ros-noetic-rtabmap ros-noetic-rtabmap-ros
 ```
 
+### Corbo systems
+```
+git clone -b master https://github.com/rst-tu-dortmund/control_box_rst.git
+
+ 
+cd control_box_rst
+mkdir build
+cd build
+cmake ..
+make -j8 -l8
+sudo make install
+```
+
 ### Run 
 
 ```
@@ -47,7 +60,7 @@ export TURTLEBOT3_MODEL=waffle
 #### Build Octomap
 
 ```
-roslaunch turtlebot_octomap turtlebot_build_map.launch
+roslaunch turtlebot_octomap turtlebot3_build_map.launch
 ```
 
 #### Control
@@ -58,5 +71,12 @@ roslaunch turtlebot3_teleop turtlebot3_teleop_key.launch
 #### Save map
 ```
 rosrun octomap_server octomap_saver -f octomap_test.bt
+```
+
+#### Navigation
+```
+export TURTLEBOT_MAP_FILE=/home/lacie-life/catkin_ws/src/TurtleBot3-MPC/turtlebot_navigation/maps/willow-2010-02-18-0.10.yaml
+
+
 ```
 
