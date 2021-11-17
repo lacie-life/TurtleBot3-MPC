@@ -6,7 +6,7 @@
 
 	<include file="$(find turtlebot_octomap)/launch/turtlebot_rtabmap.launch" />
 	
-	<node pkg="tf" type="static_transform_publisher" name="map_world_broadcaster" args="0 0 0 0 0 0 world /map 100" />
+	<node pkg="tf" type="static_transform_publisher" name="map_world_broadcaster" args="0 0 0 0 0 0 world map 100" />
 
 	<node name="octomap_server" pkg="octomap_server" type="octomap_server_node">
 		<remap from="cloud_in" to="/rtabmap/cloud_map" />
