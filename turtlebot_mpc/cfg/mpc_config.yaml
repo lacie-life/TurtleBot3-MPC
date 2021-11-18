@@ -1,0 +1,41 @@
+model_states_topic: "/gazebo/model_states"
+command_topic: "/cmd_vel"
+model_name: "turtlebot3_waffer"
+wait_topic: "/go_turtlebot_go"
+debug: False # Set to True when you wish to test MPC code with the test reference trajectory
+perpendicular: True #Set to True for Perpendicular parking and False otherwise
+parallel: False # Set to True for Parallel parking and False otherwise
+mpc:
+   T: 0.05 # [s]
+   N: 20 # Receding horizon (steps), N > 20 seems to require too much CPU power
+   xmin1: [-0.4, -0.5, -0.45] # Min ERROR from reference trajectory ([m], [m], [rad])
+   xmax1: [0.4, 0.5, 0.45]  # max ERROR from reference trjectory ([m], [m], [rad])
+   umin1: [-1, -0.8]  # Min absolute control input ([m/s], [rad/s])
+   umax1: [1, 0.8]  # Max absolute control input ([m/s], [rad/s])
+   Q1:
+      - [200, 0, 0]
+      - [0, 200, 0]
+      - [0, 0, 100]
+   QN1:
+      - [200, 0, 0]
+      - [0, 200, 0]
+      - [0, 0, 100]
+   R1:
+      - [50, 0]
+      - [0, 50]
+
+   xmin2: [-0.6, -0.6, -0.6] # Min ERROR from reference trajectory ([m], [m], [rad])
+   xmax2: [0.6, 0.6, 0.6]  # max ERROR from reference trjectory ([m], [m], [rad])
+   umin2: [-1, -0.8]  # Min absolute control input ([m/s], [rad/s])
+   umax2: [1, 0.8]  # Max absolute control input ([m/s], [rad/s])
+   Q2:
+      - [200, 0, 0]
+      - [0, 200, 0]
+      - [0, 0, 100]
+   QN2:
+      - [200, 0, 0]
+      - [0, 200, 0]
+      - [0, 0, 100]
+   R2:
+      - [100, 0]
+      - [0, 100]
