@@ -1,0 +1,22 @@
+<launch>
+  <!-- Arguments -->
+  <!--param name="slam_methods" value="gmapping"/-->
+  <arg name="configuration_basename" default="servingbot_rplidar.lua"/>
+  <arg name="open_rviz" default="true"/>
+
+  <!-- Servingbot -->
+  <include file="$(find servingbot_bringup)/launch/servingbot_remote.launch">
+  </include>
+
+  <!-- SLAM: Gmapping, Cartographer, Hector, Karto, Frontier_exploration, RTAB-Map -->
+  <include file="$(find servingbot_slam)/launch/servingbot_sick_gmapping.launch">
+    <!--param name="model" value="waffle"/-->
+    <arg name="configuration_basename" value="$(arg configuration_basename)"/>
+  </include>
+
+  <!-- rviz -->
+  <group if="$(arg open_rviz)"> 
+    <node pkg="rviz" type="rviz" name="rviz" required="true"
+          args="-d $(find servingbot_slam)/rviz/servingbot_gmapping.rviz"/>
+  </group>
+</launch>

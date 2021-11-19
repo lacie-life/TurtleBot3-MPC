@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>servingbot_navigation</name>
+  <version>0.1.0</version>
+  <description>
+    The servingbot_navigation provides roslaunch scripts for starting the navigation.
+  </description>
+  <license>Apache 2.0</license>
+  <author email="bumsol95@gmail.com">Beomsol Park</author>
+  <maintainer email="bumsol95@gmail.com">Beomsol Park</maintainer>
+  <buildtool_depend>catkin</buildtool_depend>
+  <exec_depend>amcl</exec_depend>
+  <exec_depend>map_server</exec_depend>
+  <exec_depend>move_base</exec_depend>
+  <exec_depend>servingbot_bringup</exec_depend>
+</package>

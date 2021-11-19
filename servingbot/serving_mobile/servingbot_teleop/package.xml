@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>servingbot_teleop</name>
+  <version>0.1.0</version>
+  <description>
+    Provides teleoperation using keyboard for Servingbot.
+  </description>
+  <license>BSD</license>
+  <author email="gdh8652@gmail.com">Donghyun Ko</author>
+  <maintainer email="gdh8652@gmail.com">Donghyun Ko</maintainer>
+  <buildtool_depend>catkin</buildtool_depend>
+  <depend>rospy</depend>
+  <depend>geometry_msgs</depend>
+</package>

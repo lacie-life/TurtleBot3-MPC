@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>serving_mobile</name>
+  <version>0.1.0</version>
+  <description>
+    ROS packages for the Mobile_manipulator (meta package)
+  </description>
+  <license>Apache 2.0</license>
+  <license>BSD</license>
+  <author email="gdh8652@gmail.com">Donghyun Ko</author>
+  <maintainer email="gdh8652@gmail.com">Donghyun Ko</maintainer>
+  <buildtool_depend>catkin</buildtool_depend>
+  <exec_depend>rplidar_ros</exec_depend>
+  <exec_depend>servingbot_bringup</exec_depend>
+  <exec_depend>servingbot_description</exec_depend>
+  <exec_depend>servingbot_navigation</exec_depend>
+  <exec_depend>servingbot_slam</exec_depend>
+  <exec_depend>servingbot_teleop</exec_depend>
+  <export><metapackage/></export>
+</package>

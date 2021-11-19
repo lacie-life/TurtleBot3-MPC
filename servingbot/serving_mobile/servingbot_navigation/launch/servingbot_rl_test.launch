@@ -1,0 +1,36 @@
+<launch>
+  <!-- Arguments -->
+ <arg name="map_file" default="$(find servingbot_navigation)/maps/map.yaml"/>
+  <arg name="open_rviz" default="true"/>
+
+  <!-- Servingbot -->
+
+  <include file="$(find servingbot_bringup)/launch/servingbot_remote.launch"/>
+
+  <!-- Map server -->
+  <!-- node pkg="map_server" name="map_server" type="map_server" args="$(arg map_file)"/-->
+  <node name="map_server" pkg="map_server" type="map_server" args="$(find zetabank_gazebo)/map/simul_map.yaml" output="screen">
+        <param name="frame_id" value="/map"/>
+    </node>
+
+  <!-- AMCL -->
+  <include file="$(find servingbot_navigation)/launch/amcl.launch"/>
+
+  <!-- move_base -->
+  <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
+    <param name="base_global_planner" value="global_planner/GlobalPlanner" />
+    <rosparam file="$(find servingbot_navigation)/param/costmap_common_params_servingbot.yaml" command="load" ns="global_costmap" />
+    <rosparam file="$(find servingbot_navigation)/param/costmap_common_params_servingbot.yaml" command="load" ns="local_costmap" />
+    <rosparam file="$(find servingbot_navigation)/param/local_costmap_params.yaml" command="load" />
+    <rosparam file="$(find servingbot_navigation)/param/global_costmap_params.yaml" command="load" />
+    <rosparam file="$(find servingbot_navigation)/param/move_base_params.yaml" command="load" />
+    <rosparam file="$(find servingbot_navigation)/param/dwa_local_planner_params_servingbot.yaml" command="load" />
+    <remap from="cmd_vel" to="$(arg cmd_vel_topic)"/>
+  </node>
+
+  <!-- rviz -->
+  <group if="$(arg open_rviz)"> 
+    <node pkg="rviz" type="rviz" name="rviz" required="true"
+          args="-d $(find servingbot_navigation)/rviz/servingbot_navigation.rviz"/>
+  </group>
+</launch>
