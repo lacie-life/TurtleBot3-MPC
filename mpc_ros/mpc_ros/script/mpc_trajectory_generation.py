@@ -21,7 +21,7 @@ sum_error = 0
 error_x = 0
 
 id = "odom"
-trajectory_type = ""
+trajectory_type = "infinite"
 
 current_path_x, current_path_y, current_path_theta = 0, 0, 0
 
@@ -258,9 +258,8 @@ def find_line_position(path_number, y):
 
 if __name__ == '__main__':
     rospy.init_node('path_node')
-    rospy.loginfo("path_node is started!!")
-    global trajectory_type
-    trajectory_type =  rospy.get_param('~trajectory_type')
+    rospy.loginfo("path_node is started!!") 
+    # trajectory_type =  rospy.get_param('~trajectory_type')
     odom_sub = rospy.Subscriber('/odom', Odometry, odom_cb)
 
     desired_path_pub = rospy.Publisher('/desired_path', Path, queue_size=500)

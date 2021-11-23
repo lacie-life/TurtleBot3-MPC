@@ -2,7 +2,7 @@
     <!--  ************** Global Parameters ***************  -->
     <param name="use_sim_time" value="true"/>
     <arg name="controller"  default="mpc" doc="opt: dwa, mpc, pure_pursuit"/> 
-    <arg name="model"  default="serving_bot" doc="opt: serving_bot"/> 
+    <arg name="model"  default="turtlebot3_waffle" doc="opt: serving_bot"/> 
     <arg name="trajectory_type"  default="epitrochoid" doc="opt: circle, epitrochoid, square, infinite"/> 
     <arg name="gui" default="false"/>
     
@@ -29,7 +29,7 @@
     <arg name="yaw" default="1.57075"  if="$(eval trajectory_type == 'infinite')"/>
 
     <!--  ************** Robot model ***************  -->
-    <param name="robot_description" command="$(find xacro)/xacro $(find servingbot_description)/urdf/servingbot.urdf.xacro" if="$(eval model == 'serving_bot')"/>
+    <param name="robot_description" command="$(find xacro)/xacro $(find turtlebot3_description)/urdf/turtlebot3_waffle.urdf.xacro" if="$(eval model == 'turtlebot3_waffle')"/>
 
     <include file="$(find gazebo_ros)/launch/empty_world.launch">
         <arg name="world_name" value="$(find gazebo_ros)/launch/empty_world.launch"/>
@@ -40,7 +40,7 @@
         <arg name="debug" value="false"/>
     </include>
 
-    <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-urdf -model servingbot -x $(arg x_pos) -y $(arg y_pos) -z $(arg z_pos) -R $(arg roll) -P $(arg pitch) -Y $(arg yaw) -param robot_description" />
+    <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-urdf -model turtlebot3_waffer -x $(arg x_pos) -y $(arg y_pos) -z $(arg z_pos) -R $(arg roll) -P $(arg pitch) -Y $(arg yaw) -param robot_description" />
      
     <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher">
         <param name="publish_frequency" type="double" value="50.0" />
