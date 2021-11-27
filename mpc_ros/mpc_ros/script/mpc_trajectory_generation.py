@@ -21,7 +21,7 @@ sum_error = 0
 error_x = 0
 
 id = "odom"
-trajectory_type = "infinite"
+trajectory_type = "epitrochoid"
 
 current_path_x, current_path_y, current_path_theta = 0, 0, 0
 

@@ -1,8 +1,8 @@
 <launch>
     <!--  ************** Global Parameters ***************  -->
     <param name="use_sim_time" value="true"/>
-    <arg name="controller"  default="mpc" doc="opt: dwa, mpc, pure_pursuit"/> 
-    <arg name="model"  default="turtlebot3_waffle" doc="opt: serving_bot"/> 
+    <arg name="controller"  default="pure_pursuit" doc="opt: dwa, mpc, pure_pursuit"/> 
+    <arg name="model"  default="turtlebot3_burger" doc="opt: serving_bot"/> 
     <arg name="trajectory_type"  default="epitrochoid" doc="opt: circle, epitrochoid, square, infinite"/> 
     <arg name="gui" default="false"/>
     
@@ -29,7 +29,7 @@
     <arg name="yaw" default="1.57075"  if="$(eval trajectory_type == 'infinite')"/>
 
     <!--  ************** Robot model ***************  -->
-    <param name="robot_description" command="$(find xacro)/xacro $(find turtlebot3_description)/urdf/turtlebot3_waffle.urdf.xacro" if="$(eval model == 'turtlebot3_waffle')"/>
+    <param name="robot_description" command="$(find xacro)/xacro $(find turtlebot3_description)/urdf/turtlebot3_burger.urdf.xacro" if="$(eval model == 'turtlebot3_burger')"/>
 
     <include file="$(find gazebo_ros)/launch/empty_world.launch">
         <arg name="world_name" value="$(find gazebo_ros)/launch/empty_world.launch"/>
@@ -40,7 +40,7 @@
         <arg name="debug" value="false"/>
     </include>
 
-    <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-urdf -model turtlebot3_waffer -x $(arg x_pos) -y $(arg y_pos) -z $(arg z_pos) -R $(arg roll) -P $(arg pitch) -Y $(arg yaw) -param robot_description" />
+    <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-urdf -model turtlebot3_burger -x $(arg x_pos) -y $(arg y_pos) -z $(arg z_pos) -R $(arg roll) -P $(arg pitch) -Y $(arg yaw) -param robot_description" />
      
     <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher">
         <param name="publish_frequency" type="double" value="50.0" />
@@ -50,13 +50,20 @@
     <node name="mpc_trajectory_generation" pkg="mpc_ros" type="mpc_trajectory_generation.py"  if="$(eval controller == 'mpc')">
         <param name="trajectory_type" value="$(arg trajectory_type)" />
     </node>
-    <node name="dwa_trajectory_generation" pkg="mpc_ros" type="dwa_trajectory_generation.py"  if="$(eval controller == 'dwa')">
+    <node name="pure_pursuit_trajectory_generation" pkg="mpc_ros" type="mpc_trajectory_generation.py"  if="$(eval controller == 'pure_pursuit')">
         <param name="trajectory_type" value="$(arg trajectory_type)" />
     </node>
 
     <!--  ************** MPC Node **************  -->
     <node name="MPC_tracking" pkg="mpc_ros" type="tracking_reference_trajectory" output="screen" if="$(eval controller == 'mpc')" >
-        <rosparam file="$(find mpc_ros)/params/mpc_local_square_params.yaml" command="load" />
+        <rosparam file="$(find mpc_ros)/params/mpc_params.yaml" command="load" />
+        <!--rosparam file="$(find mpc_ros)/params/mpc_local_params.yaml" command="load" /-->
+        <!--rosparam file="$(find mpc_ros)//params/mpc_local_epitrochoid_params.yaml" command="load" /-->
+    </node>
+
+     <!--  ************** Pure Pursuit Node **************  -->
+    <node name="Pure_Pursuit_tracking" pkg="mpc_ros" type="Pure_Pursuit" output="screen" if="$(eval controller == 'pure_pursuit')" >
+        <rosparam file="$(find mpc_ros)/params/pure_pursuit_params.yaml" command="load" />
         <!--rosparam file="$(find mpc_ros)/params/mpc_local_params.yaml" command="load" /-->
         <!--rosparam file="$(find mpc_ros)//params/mpc_local_epitrochoid_params.yaml" command="load" /-->
     </node>

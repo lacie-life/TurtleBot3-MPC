@@ -40,7 +40,6 @@
         <param name="frame_id" value="map"/>
     </node>
 
-
     <!--  ************** Localization **************  -->
     
     <node pkg="amcl" type="amcl" name="amcl" output="screen">
