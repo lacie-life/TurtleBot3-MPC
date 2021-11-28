@@ -2,8 +2,8 @@
 
     <!--  ************** Global Parameters ***************  -->
     <param name="use_sim_time" value="true"/>
-    <arg name="controller"  default="mpc" doc="opt: dwa, mpc, pure_pursuit"/> 
-    <arg name="model"  default="turtlebot3_waffer" doc="opt: serving_bot"/> 
+    <arg name="controller"  default="dwa" doc="opt: dwa, mpc, pure_pursuit"/> 
+    <arg name="model"  default="turtlebot3_burger" doc="opt: serving_bot"/> 
     <arg name="tf_prefix"  default=""/> 
 
     <!--  ************** GAZEBO Simulator ***************  -->
@@ -16,10 +16,10 @@
     <arg name="gui" default="false"/>
 
     <!--  ************** Robot model ***************  -->
-    <param name="robot_description" command="$(find xacro)/xacro $(find turtlebot3_description)/urdf/turtlebot3_waffle.urdf.xacro" if="$(eval model == 'turtlebot3_waffer')"/>
+    <param name="robot_description" command="$(find xacro)/xacro $(find turtlebot3_description)/urdf/turtlebot3_burger.urdf.xacro" if="$(eval model == 'turtlebot3_burger')"/>
 
     <include file="$(find gazebo_ros)/launch/empty_world.launch">
-        <arg name="world_name" value="$(find mpc_ros)/worlds/sq_world.world"/>
+        <arg name="world_name" value="$(find mpc_ros)/worlds/big_s_world.world"/>
         <arg name="paused" value="false"/>
         <arg name="use_sim_time" value="true"/>
         <arg name="gui" value="$(arg gui)"/>
@@ -28,7 +28,7 @@
     </include>
     
 
-    <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-urdf -model turtlebot3_waffer -x $(arg x_pos) -y $(arg y_pos) -z $(arg z_pos) -R $(arg roll) -P $(arg pitch) -Y $(arg yaw) -param robot_description" />
+    <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-urdf -model turtlebot3_burger -x $(arg x_pos) -y $(arg y_pos) -z $(arg z_pos) -R $(arg roll) -P $(arg pitch) -Y $(arg yaw) -param robot_description" />
       
     <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher">
         <param name="publish_frequency" type="double" value="50.0" />
@@ -36,7 +36,7 @@
 
 
     <!--  ************** Map **************  -->
-    <node name="map_server" pkg="map_server" type="map_server" args="$(find mpc_ros)/map/sq_world.yaml" output="screen">
+    <node name="map_server" pkg="map_server" type="map_server" args="$(find mpc_ros)/map/big_s_world.yaml" output="screen">
         <param name="frame_id" value="map"/>
     </node>
 
@@ -65,7 +65,7 @@
         <rosparam file="$(find mpc_ros)/params/global_planner_params.yaml" command="load" />
         
         <!-- Local Planner -->
-        <rosparam file="$(find mpc_ros)/params/mpc_last_params.yaml" command="load" />
+        <rosparam file="$(find turtlebot3_navigation)/param/dwa_local_planner_params_burger.yaml" command="load" />
         <param name="base_local_planner" value="mpc_ros/MPCPlannerROS"  if="$(eval controller == 'mpc')"/>
         <param name="base_local_planner" value="dwa_local_planner/DWAPlannerROS"  if="$(eval controller == 'dwa')"/>    
         
